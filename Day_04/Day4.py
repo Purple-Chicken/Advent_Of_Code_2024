@@ -11,10 +11,10 @@ def main():
     search_count += vertical_search(xword, "XMAS")
     search_count += vertical_search(xword, "SAMX")
     print(f"XMAS appears in the word search {search_count} times horizontally and vertically.")
-    search_count += forward_diag_search(xword, "XMAS")
-    search_count += forward_diag_search(xword, "SAMX")
-    #search_count += back_diag_search(xword, "XMAS")
-    #search_count += back_diag_search(xword, "SAMX")
+    #search_count += forward_diag_search(xword, "XMAS")
+    #search_count += forward_diag_search(xword, "SAMX")
+    search_count += back_diag_search(xword, "XMAS")
+    search_count += back_diag_search(xword, "SAMX")
     print(f"XMAS appears in the word search {search_count} times.")
 def make_array(input_str):
     return [list(i) for i in input_str]
@@ -40,13 +40,13 @@ def vertical_search(array,word):
         i += 1
     return count
 
-def forward_diag_search(array, word):
+def back_diag_search(array, word):
     count = 0
     i=0
     while i < len(array[0]):
         temp_array = []
         j=0
-        while j < (len(array[0])-i-1):
+        while j < (len(array)-i-1):
             temp_array.append(array[i+j][j])
             j += 1
         count += len(re.findall(word, ''.join(temp_array)))
