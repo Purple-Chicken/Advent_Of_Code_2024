@@ -43,10 +43,12 @@ def vertical_search(array,word):
 def back_diag_search(array, word): #Searches in backslashes \\\\\\\\
     count = 0
     i=0
+    for k in array:
+        print(k)
     while i < len(array):
         temp_array = []
         j=0
-        while j < (len(array[0])-i-1):
+        while j < len(array[0]):
             temp_array.append(array[i+j][j])
             j += 1
         count += len(re.findall(word, ''.join(temp_array)))
@@ -55,31 +57,36 @@ def back_diag_search(array, word): #Searches in backslashes \\\\\\\\
 
 def tall_array(array, mode): #Adds m-1 * n rows below original array. Index now covers all diags instead of just half.
     m = len(array)
-    if mode == 0:
-        m=len(array) - 1
-        temp_array = []
-        temp_array[0:len(array)-1] = "N"*len(array[0])
+    temp_array = []
+    empty_str = ["."] * len(array[0])
+    i=1
+    if mode == 1:
+        for j in array:
+            temp_array.append(j)
+        while i < m:
+            temp_array.append(empty_str)
+            i += 1
+        return temp_array
+    elif mode == 0: #0 is blankspace on top, 1 is blankspace on bottom
+        while i < m:
+            temp_array.append(empty_str)
+            i += 1
         for j in array:
             temp_array.append(j)
         return temp_array
-    elif mode == 1: #0 is blankspace on top, 1 is blankspace on bottom
-        i=1
-        while i < m-1:
-            array.append("N"*len(array[0]))
-            i += 1
-        return array
     else:
         return array
 
 def forward_diag_search(array, word): #Searches in forwardslashes ///
     count = 0
-    i=len(array)
+    i=len(array)-1
     while i > 0:
         temp_array = []
         j=0
-        while j < (len(array[0])-i-1):
+        while j < (len(array[0])):
             temp_array.append(array[i-j][j])
             j += 1
+        #print(temp_array)
         count += len(re.findall(word, ''.join(temp_array)))
         i += -1
     return count
