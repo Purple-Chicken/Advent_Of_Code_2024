@@ -43,14 +43,26 @@ def vertical_search(array,word):
 def back_diag_search(array, word): #Searches in backslashes \\\\\\\\
     count = 0
     i=0
+    split_val= (len(array)-1)/2
     for k in array:
         print(k)
-    while i < len(array):
+    while i < (len(array)+1)/2:
         temp_array = []
         j=0
         while j < len(array[0]):
             temp_array.append(array[i+j][j])
             j += 1
+        print(temp_array)
+        count += len(re.findall(word, ''.join(temp_array)))
+        i += 1
+    while i < len(array):
+        temp_array = []
+        j=0
+        while j < len(array)-i:
+            temp_array.append(array[i+j][j])
+            #print(f"Appending: array[{i+j}][{j}] = {array[i+j][j]}")
+            j += 1
+        print(temp_array)
         count += len(re.findall(word, ''.join(temp_array)))
         i += 1
     return count
@@ -86,7 +98,7 @@ def forward_diag_search(array, word): #Searches in forwardslashes ///
         while j < (len(array[0])):
             temp_array.append(array[i-j][j])
             j += 1
-        #print(temp_array)
+        print(temp_array)
         count += len(re.findall(word, ''.join(temp_array)))
         i += -1
     return count
